@@ -50,7 +50,7 @@ patch:
   # 配色方案定义
   # 注意:Squirrel 颜色使用 BGR 格式;支持透明度时为 0xAABBGGRR(AA=透明度)
   preset_color_schemes:
-    MiniMindX:
+    HanDouNormal:
       name: "HanDouNormal"
       author: "HanDaoLiang"
 
