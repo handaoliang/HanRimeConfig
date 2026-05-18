@@ -1,0 +1,145 @@
+# Squirrel 鼠须管 - MiniMindX 主题
+# 横向排列候选词
+# 作者: handaoliang
+# 使用方法:将此文件放入 ~/Library/Rime/ 目录,然后在「鼠须管设定」中应用配置
+
+patch:
+  # 应用 MiniMindX 主题
+  "style/color_scheme": HanDouNormal
+  "style/color_scheme_dark": HanDouNormal
+
+  # 横向排列
+  "style/horizontal": true
+
+  # 候选词布局
+  "style/candidate_list_layout": linear
+  "style/text_orientation": horizontal
+
+  # 待转字母不嵌入目标程序,由输入法窗口显示
+  "style/inline_preedit": false
+
+  # 消除掉输入的字母后面的^这个符号
+  "style/caret_symbol": ""
+
+  # 字体设置 - Yahei Mono 优先,回落到苹方与 Menlo
+  "style/font_face": "Yahei Mono, PingFangSC, HelveticaNeue, Menlo"
+  "style/font_point": 16
+  "style/label_font_face": "Yahei Mono, PingFangSC, HelveticaNeue, Menlo"
+  "style/label_font_point": 16
+  "style/comment_font_face": "Yahei Mono, PingFangSC, HelveticaNeue, Menlo"
+  "style/comment_font_point": 16
+  # 输入码(preedit)单独字号 - 与候选词保持一致,避免高亮块垂直错位
+  "style/preedit_font_face": "Yahei Mono, PingFangSC, HelveticaNeue, Menlo"
+  "style/preedit_font_point": 18
+
+  # 候选词标签样式:序号 + 点 + 窄空格(U+2005, 1/6 em),让点和候选字更近
+  "style/label_format": "%s.\u2005"
+  # 候选词排版:label 与候选词紧贴(label_format 已含尾部空格)
+  "style/candidate_format": "%c.\u2005%@"
+
+  # 边距与圆角
+  "style/corner_radius": 6
+  "style/hilited_corner_radius": 6    # 高亮块圆角(也间接决定高亮块视觉高度)
+  "style/border_height": 6           # 面板上下内边距
+  "style/border_width": 12            # 面板左右内边距
+  "style/line_spacing": 0             # 候选行不加额外底距,避免高亮块偏顶
+  "style/spacing": 2                  # 候选词之间间距
+  "style/base_offset": 0
+  "style/shadow_size": 0
+
+  # 配色方案定义
+  # 注意:Squirrel 颜色使用 BGR 格式;支持透明度时为 0xAABBGGRR(AA=透明度)
+  preset_color_schemes:
+    MiniMindX:
+      name: "HanDouNormal"
+      author: "HanDaoLiang"
+
+      # 主背景与边框
+      back_color: 0x272822              # 背景 RGB #282923 → BGR 0x272822
+      border_color: 0x272822            # 边框与背景一致
+
+      # 输入码区域(待转字母,显示在输入法窗口顶部)
+      text_color: 0x1964FC              # 输入码 RGB #FC6419 → BGR 0x1964FC
+      hilited_text_color: 0x1964FC      # 已确认的输入码同色
+      hilited_back_color: 0x272822      # 输入码背景与面板一致
+
+      # 候选词通用颜色
+      candidate_text_color: 0xF8F8F2    # 候选词文本 米白 RGB #F2F8F8
+
+      # 首选项(高亮的第一个候选)
+      hilited_candidate_text_color: 0x116CFF      # 首选文字 RGB #FF6C11 → BGR 0x116CFF
+      hilited_candidate_back_color: 0x00272822    # 完全透明,不显示高亮块
+      hilited_candidate_label_color: 0x116CFF     # 首选序号同色
+      hilited_comment_text_color: 0x116CFF        # 首选注释同色
+
+      # 非首选候选词的序号与注释
+      label_color: 0x5E7175             # MiniMindX 灰 RGB #75715E → BGR 0x5E7175
+      comment_text_color: 0x5E7175      # 注释颜色一致
+
+    HanDouLight:
+      name: "HanDouLight"
+      font_face: "Helvetica"
+      font_point: 15.0
+      candidate_list_layout: linear
+      text_orientation: horizontal
+      inline_preedit: false
+      translucency: true
+      mutual_exclusive: true
+      corner_radius: 15.0
+      hilited_corner_radius: 13.0
+      border_height: -5.0
+      border_width: -5.0
+      line_spacing: 4.0
+      spacing: 10.0
+      alpha: 60.0
+      shadow_size: 1.0
+      color_space: display_p3
+      back_color: 0x1AFFFFFF
+      candidate_text_color: 0xB3000000
+      comment_text_color: 0x80333333
+      label_color: 0xBB333333
+      hilited_candidate_back_color: 0x7DC6C6C6
+      hilited_candidate_text_color: 0x000000
+      hilited_comment_text_color: 0xBF333333
+      hilited_candidate_label_color: 0x000000
+      preedit_back_color: 0x1A000000
+      text_color: 0xBF323232
+      hilited_text_color: 0xBF1A1A1A
+
+    HanDouDark:
+      name: "HanDouDark"
+      author: "HanDaoLiang"
+      font_face: "Helvetica"
+      font_point: 15.0
+      candidate_list_layout: linear
+      text_orientation: horizontal
+      inline_preedit: false
+      translucency: true
+      mutual_exclusive: true
+      corner_radius: 15.0
+      hilited_corner_radius: 13.0
+      border_height: -5.0
+      border_width: -5.0
+      line_spacing: 4.0
+      spacing: 10.0
+      alpha: 60.0
+      shadow_size: 1.0
+      color_space: display_p3
+      # 颜色格式:0xAABBGGRR (AA=Alpha 透明度, BB=蓝, GG=绿, RR=红)
+      # MiniMindX 深色配色:纯黑背景(完全不透明)
+      back_color: 0x000000            # 纯黑背景,100% 不透明
+      # 输入码区域 - 橙色 #FC6419
+      text_color: 0x1964FC            # 输入码 75% 不透明
+      hilited_text_color: 0x1964FC    # 已确认输入码同色
+      hilited_back_color: 0x000000    # 输入码背景与面板一致(纯黑不透明)
+      preedit_back_color: 0x000000    # 预编辑背景(对应 Light 的同名值)
+      # 候选词通用 - 米白 #F8F8F2
+      candidate_text_color: 0xFFFFFF
+      # 首选项 - 橙色 #FF6C11
+      hilited_candidate_back_color: 0x222222
+      hilited_candidate_text_color: 0x116CFF
+      hilited_comment_text_color: 0x116CFF
+      hilited_candidate_label_color: 0x116CFF
+      # 非首选序号与注释 - 灰 #75715E
+      label_color: 0x5E7175
+      comment_text_color: 0x5E7175

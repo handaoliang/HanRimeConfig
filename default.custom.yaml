@@ -1,0 +1,28 @@
+# Squirrel 全局配置定制
+# 作者: handaoliang
+# 使用方法:覆盖 ~/Library/Rime/default.custom.yaml 后重新部署
+
+patch:
+  # 候选词每页数量
+  menu:
+    page_size: 9
+
+  # 启用的输入方案
+  schema_list:
+    - schema: wubi86
+    - schema: luna_pinyin_simp
+
+  # ===========================================================
+  # ASCII 模式切换:只允许「右 Shift」切换中英文
+  # ===========================================================
+  # good_old_caps_lock: true 表示按下时直接切换状态(而非长按)
+  # 左 Shift 设为 noop(无操作),只有右 Shift 才切换 ascii_mode
+  ascii_composer/good_old_caps_lock: true
+  ascii_composer/switch_key:
+    Shift_L: noop                       # 左 Shift 不切换
+    Shift_R: commit_code                # 右 Shift 切换中英文,并上屏当前输入
+    # Shift_R: noop                # 右 Shift 切换中英文,并上屏当前输入
+    Control_L: noop
+    Control_R: noop
+    Caps_Lock: clear                    # CapsLock 清空输入(不切换大小写)
+    Eisu_toggle: clear
