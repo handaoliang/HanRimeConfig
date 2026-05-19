@@ -24,5 +24,6 @@ patch:
     # Shift_R: noop                # 右 Shift 切换中英文,并上屏当前输入
     Control_L: noop
     Control_R: noop
-    Caps_Lock: clear                    # CapsLock 清空输入(不切换大小写)
+    # 建议在 macOS 系统设置中将 Caps Lock 设为「切换输入法/切换 ABC」,体验更顺手
+    Caps_Lock: noop                     # CapsLock 交给 macOS 系统处理
     Eisu_toggle: clear
