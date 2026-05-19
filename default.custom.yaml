@@ -18,6 +18,8 @@ patch:
     # - schema: wubi86_jidian_trad_pinyin # 五笔拼音混输 - 简入繁出
     # - schema: pinyin_simp               # 普通拼音
 
+  switcher/caption: "〔选择输入法〕"
+
   #-----------------------------------------------
   # 中英文切换自定义
   #-----------------------------------------------
@@ -42,6 +44,13 @@ patch:
     # 建议在 macOS 系统设置中将 Caps Lock 设为「切换输入法/切换 ABC」,体验更顺手
     Caps_Lock: noop                     # CapsLock 交给 macOS 系统处理
     Eisu_toggle: clear
+
+  # macOS 的 Command 键在 Rime 中通常写作 Super；若系统占用了 Command+Space,
+  # 需要先在 macOS 键盘快捷键设置里释放该组合键，Squirrel 才能收到。
+  # 不行，拿不到 Command+Space 组合键，这三行配置保留，留个念想吧，后面看看有没有机会用上。
+  key_binder/bindings/+:
+    - { when: always, accept: Super+space, toggle: ascii_mode }
+    - { when: always, accept: Meta+space, toggle: ascii_mode }
 
   # 中英文之间自动补半角空格；设为 false 可关闭 english_sentence 与 pangu_spacing_filter 的补空格行为
   pangu_spacing:
