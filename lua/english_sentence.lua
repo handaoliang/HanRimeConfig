@@ -71,10 +71,24 @@ local key_to_char = {
 
 -- 判断当前是否处于 uppercase 段: input 中包含任意大写字母
 -- 这样 iMac / nA / GitHub 等小写开头但含大写的输入也能触发英文累积
-local function is_uppercase_segment(context)
+-- local function is_uppercase_segment(context)
+--   local input = context.input
+--   if not input or input == "" then return false end
+--   return input:match("[A-Z]") ~= nil
+-- end
+
+local function has_uppercase(input)
+  return input:match("[A-Z]") ~= nil
+end
+
+local function has_special_char(input)
+  return input:match("[._+%-%$'\"`~!@#%%%^&*=%|\\/:;,?%(%)%[%]{}<>]") ~= nil
+end
+
+local function is_english_accumulation_segment(context)
   local input = context.input
   if not input or input == "" then return false end
-  return input:match("[A-Z]") ~= nil
+  return has_uppercase(input) or has_special_char(input)
 end
 
 local function processor(key_event, env)
@@ -85,7 +99,8 @@ local function processor(key_event, env)
   -- 唯一例外: 在 uppercase 段中,屏蔽 Shift_R / Shift_L 的释放,
   -- 避免 ascii_composer 因释放事件触发 ASCII 模式切换导致 input 提前上屏
   if key_event:release() then
-    if is_uppercase_segment(context)
+    -- if is_uppercase_segment(context)
+    if is_english_accumulation_segment(context)
        and (key == "Shift_R" or key == "Shift_L") then
       return kAccepted
     end
@@ -93,7 +108,8 @@ local function processor(key_event, env)
   end
 
   -- 仅在 uppercase 段中介入下面的逻辑
-  if not is_uppercase_segment(context) then
+  -- if not is_uppercase_segment(context) then
+  if not is_english_accumulation_segment(context) then
     return kNoop
   end
 
