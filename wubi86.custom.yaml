@@ -5,6 +5,9 @@
 
 patch:
   "schema/name": "五笔"
+  schema/dependencies:
+    - pinyin_simp
+    - luna_pinyin
 
   switches:
     - name: ascii_mode
@@ -86,7 +89,7 @@ patch:
     dictionary: luna_pinyin
     enable_user_dict: false
     prefix: "`"
-    suffix: "';"
+    suffix: "'"
     tips: 〔正常拼音〕
     preedit_format:
       - xform/([nl])v/$1ü/
@@ -95,4 +98,3 @@ patch:
     comment_format:
       - xform/([nl])v/$1ü/
       - xform/([nl])ue/$1üe/
-

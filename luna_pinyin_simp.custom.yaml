@@ -1,5 +1,8 @@
 patch:
   "schema/name": "拼音"
+  schema/dependencies:
+    - luna_pinyin
+    - easy_en
 
   switches:
     - name: ascii_mode # 0 中文，1 英文
@@ -40,13 +43,12 @@ patch:
     - express_editor
 
 
-  # 启用罕见字過濾
+  # Emoji、字符集过滤与去重
   engine/filters:
     - simplifier
     - simplifier@emoji_conversion
     - uniquifier
     - charset_filter@gbk # (※3) GBK 过滤
-    - single_char_filter
 
   emoji_conversion:
     opencc_config: emoji.json
@@ -60,10 +62,15 @@ patch:
   # 载入朙月拼音扩充词库
   "translator/dictionary": luna_pinyin.extended
 
-  # 加载easy_en依赖
-  "schema/dependencies/@1": easy_en
-  # 载入翻译英文的码表翻译器，取名为 english
-  "engine/translators/@4": table_translator@english
+  # 载入翻译英文的码表翻译器，取名为 english；显式声明顺序，
+  # 避免依赖 @4 / @6 这类下标补丁随上游 schema 变化而错位。
+  engine/translators:
+    - punct_translator
+    - table_translator@custom_phrase
+    - reverse_lookup_translator
+    - script_translator
+    - table_translator@english
+    - lua_translator@date_translator
   # english翻译器的设定项
   english:
     dictionary: easy_en
@@ -193,6 +200,3 @@ patch:
   # 分尖團後 v => ü 的改寫條件也要相應地擴充：
   #'translator/preedit_format':
   #  - "xform/([nljqxyzcs])v/$1ü/"
-
-  # librime-lua 输入动态时间和日期
-  "engine/translators/@6": lua_translator@date_translator
