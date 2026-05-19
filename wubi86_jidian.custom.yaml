@@ -1,38 +1,13 @@
-# 五笔 86 定制
+# 极点五笔 86 定制
 # 中文输入(半角)模式下,/ 键直接输出顿号「、」
 # 反查: z -> pinyin_simp, ` -> luna_pinyin
 # 作者: handaoliang
 
 patch:
-  "schema/name": "原生五笔"
+  "schema/name": "极点五笔"
   schema/dependencies:
     - pinyin_simp
     - luna_pinyin
-
-  switches:
-    - name: ascii_mode
-      reset: 0
-      states: [ 中文, 英文 ]
-    - name: full_shape
-      states: [ 半角, 全角 ]
-    - name: simplification
-      reset: 1
-      states: [ 漢字, 汉字 ]
-    - name: ascii_punct
-      states: [ 。，, ．， ]
-
-  punctuator/half_shape/+:
-    "/": "、"
-    " ": "　"
-
-  # 启用用户词典: 动态学习字词频(选词次数多的字会自动排到前面)
-  # schema 内置的 encode_commit_history + enable_encoder 配合本项可实现自动造词
-  "translator/enable_user_dict": true
-
-  engine/filters:
-    # - lua_filter@single_char_first_filter
-    - simplifier
-    - uniquifier
 
   # processors: 智能空格(根据上一个上屏内容决定半角/全角)
   # lua_processor 必须放在 punctuator 之前才能拦截空格
@@ -62,8 +37,13 @@ patch:
     - punct_translator
     - reverse_lookup_translator
     - reverse_lookup_translator@reverse_lookup2
-    - lua_translator@date_translator
     - table_translator
+    - lua_translator@*wubi86_jidian_date_translator # 日期、时间、星期
+    - history_translator@repeat_last_input # 重复上一次输入，对应下面的 repeat_last_input
+
+
+  "speller/max_code_length": 128       # 四码上屏
+  "speller/auto_select": false        # 四码唯一时，自动上屏
 
   "recognizer/patterns/reverse_lookup": "^z[a-z]*'?$"
   "recognizer/patterns/reverse_lookup2": "^`[a-z]*'?$"
@@ -98,3 +78,4 @@ patch:
     comment_format:
       - xform/([nl])v/$1ü/
       - xform/([nl])ue/$1üe/
+

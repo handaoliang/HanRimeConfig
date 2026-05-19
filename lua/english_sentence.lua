@@ -82,12 +82,15 @@ local function has_uppercase(input)
 end
 
 local function has_special_char(input)
+  if not input:match("^[A-Za-z]") then return false end
   return input:match("[._+%-%$'\"`~!@#%%%^&*=%|\\/:;,?%(%)%[%]{}<>]") ~= nil
 end
 
 local function is_english_accumulation_segment(context)
   local input = context.input
   if not input or input == "" then return false end
+  -- 当输入`符号进入到正常反查时，要能输入
+  if input:match("^`") then return false end
   return has_uppercase(input) or has_special_char(input)
 end
 
