@@ -4,6 +4,9 @@ patch:
     - luna_pinyin
     - easy_en
 
+  pangu_spacing:
+    __include: default:/pangu_spacing
+
   switches:
     - name: ascii_mode # 0 中文，1 英文
       reset: 0
@@ -49,6 +52,7 @@ patch:
     - simplifier@emoji_conversion
     - uniquifier
     - charset_filter@gbk # (※3) GBK 过滤
+    - lua_filter@pangu_spacing_filter
 
   emoji_conversion:
     opencc_config: emoji.json

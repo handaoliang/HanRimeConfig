@@ -9,6 +9,9 @@ patch:
     - pinyin_simp
     - luna_pinyin
 
+  pangu_spacing:
+    __include: default:/pangu_spacing
+
   switches:
     - name: ascii_mode
       reset: 0
@@ -30,7 +33,7 @@ patch:
   "translator/enable_user_dict": true
 
   engine/filters:
-    # - lua_filter@single_char_first_filter
+    - lua_filter@pangu_spacing_filter
     - simplifier
     - uniquifier
 

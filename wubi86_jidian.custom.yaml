@@ -9,6 +9,9 @@ patch:
     - pinyin_simp
     - luna_pinyin
 
+  pangu_spacing:
+    __include: default:/pangu_spacing
+
   # processors: 智能空格(根据上一个上屏内容决定半角/全角)
   # lua_processor 必须放在 punctuator 之前才能拦截空格
   # english_sentence 须放在 ascii_composer 之前,否则 Shift 键会先被
@@ -45,6 +48,10 @@ patch:
   "speller/max_code_length": 128       # 四码上屏
   "speller/auto_select": false        # 四码唯一时，自动上屏
 
+  engine/filters:
+    - lua_filter@pangu_spacing_filter
+    - simplifier@tradition
+
   "recognizer/patterns/reverse_lookup": "^z[a-z]*'?$"
   "recognizer/patterns/reverse_lookup2": "^`[a-z]*'?$"
   # uppercase 段允许的字符: 字母数字 + 空格 + 所有可打印 ASCII 标点
@@ -78,4 +85,3 @@ patch:
     comment_format:
       - xform/([nl])v/$1ü/
       - xform/([nl])ue/$1üe/
-

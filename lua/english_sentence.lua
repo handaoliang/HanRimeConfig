@@ -8,7 +8,7 @@
 --      本 processor 在 uppercase 段中拦截它们,追加到 input
 --   3. 在 uppercase 段中按单独的 Shift 键不切换 ASCII 模式
 --      避免输大写字母组合时意外触发模式切换导致 input 上屏
---   4. 回车 / Esc / BackSpace 走 Rime 默认行为(上屏 / 取消 / 删字符)
+--   4. 回车上屏英文 input; Esc / BackSpace 走 Rime 默认行为(取消 / 删字符)
 --
 -- 作者: handaoliang
 
@@ -86,12 +86,74 @@ local function has_special_char(input)
   return input:match("[._+%-%$'\"`~!@#%%%^&*=%|\\/:;,?%(%)%[%]{}<>]") ~= nil
 end
 
+local function is_plain_english_input(input)
+  if not input or input == "" then return false end
+  if input:match("^`") then return false end
+  return input:match("^[A-Za-z][0-9A-Za-z._+%-%$'\"`~!@#%%%^&*=%|\\/:;,?%(%)%[%]{}<>]*$") ~= nil
+end
+
 local function is_english_accumulation_segment(context)
   local input = context.input
   if not input or input == "" then return false end
   -- 当输入`符号进入到正常反查时，要能输入
   if input:match("^`") then return false end
   return has_uppercase(input) or has_special_char(input)
+end
+
+local function first_codepoint(text)
+  if not text or text == "" then return nil end
+  for _, codepoint in utf8.codes(text) do
+    return codepoint
+  end
+  return nil
+end
+
+local function last_codepoint(text)
+  if not text or text == "" then return nil end
+  local last = nil
+  for _, codepoint in utf8.codes(text) do
+    last = codepoint
+  end
+  return last
+end
+
+local function is_ascii_alnum(codepoint)
+  if not codepoint then return false end
+  return (codepoint >= 0x30 and codepoint <= 0x39)
+      or (codepoint >= 0x41 and codepoint <= 0x5A)
+      or (codepoint >= 0x61 and codepoint <= 0x7A)
+end
+
+local function is_cjk(codepoint)
+  if not codepoint then return false end
+  return (codepoint >= 0x3400 and codepoint <= 0x4DBF)
+      or (codepoint >= 0x4E00 and codepoint <= 0x9FFF)
+      or (codepoint >= 0xF900 and codepoint <= 0xFAFF)
+      or (codepoint >= 0x20000 and codepoint <= 0x2A6DF)
+      or (codepoint >= 0x2A700 and codepoint <= 0x2B73F)
+      or (codepoint >= 0x2B740 and codepoint <= 0x2B81F)
+      or (codepoint >= 0x2B820 and codepoint <= 0x2CEAF)
+      or (codepoint >= 0x2CEB0 and codepoint <= 0x2EBEF)
+      or (codepoint >= 0x30000 and codepoint <= 0x3134F)
+end
+
+local function last_committed_text(context)
+  local history = context.commit_history
+  if not history or history:empty() then return nil end
+  local last_record = history:back()
+  return last_record and last_record.text or nil
+end
+
+local function pangu_spacing_enabled(env)
+  local config = env.engine.schema.config
+  if not config then return true end
+  return config:get_bool("pangu_spacing/enabled")
+end
+
+local function should_prefix_space(context, text)
+  if text:match("^%s") then return false end
+  local previous = last_committed_text(context)
+  return is_cjk(last_codepoint(previous)) and is_ascii_alnum(first_codepoint(text))
 end
 
 local function processor(key_event, env)
@@ -105,6 +167,22 @@ local function processor(key_event, env)
     -- if is_uppercase_segment(context)
     if is_english_accumulation_segment(context)
        and (key == "Shift_R" or key == "Shift_L") then
+      return kAccepted
+    end
+    return kNoop
+  end
+
+  -- 英文 input 按回车直接上屏时,如果前一个上屏内容是中文,
+  -- 在英文前补一个半角空格。覆盖普通英文 preedit 与英文累积两种场景。
+  if key == "Return" or key == "KP_Enter" then
+    local input = context.input
+    if is_plain_english_input(input) then
+      local text = input
+      if pangu_spacing_enabled(env) and should_prefix_space(context, text) then
+        text = " " .. text
+      end
+      env.engine:commit_text(text)
+      context:clear()
       return kAccepted
     end
     return kNoop

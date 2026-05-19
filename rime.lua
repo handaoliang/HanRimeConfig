@@ -10,6 +10,10 @@ date_translator = require("date_translator")
 -- 在 schema 中通过 engine/filters 加 lua_filter@single_char_first_filter 启用
 -- single_char_first_filter = require("single_char_first_filter")
 
+-- 英文后接中文时自动补半角空格 (filter)
+-- 在 schema 中通过 engine/filters 加 lua_filter@pangu_spacing_filter 启用
+pangu_spacing_filter = require("pangu_spacing_filter")
+
 -- 智能空格: 根据上一个上屏内容决定半角/全角 (processor)
 smart_space = require("smart_space")
 

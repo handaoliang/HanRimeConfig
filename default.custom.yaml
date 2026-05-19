@@ -43,6 +43,10 @@ patch:
     Caps_Lock: noop                     # CapsLock 交给 macOS 系统处理
     Eisu_toggle: clear
 
+  # 中英文之间自动补半角空格；设为 false 可关闭 english_sentence 与 pangu_spacing_filter 的补空格行为
+  pangu_spacing:
+    enabled: true
+
 #==  punctuator:
 #==    full_shape: # 全角符号
 #==      " ": {commit: "　"}
