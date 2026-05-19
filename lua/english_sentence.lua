@@ -153,7 +153,10 @@ end
 local function should_prefix_space(context, text)
   if text:match("^%s") then return false end
   local previous = last_committed_text(context)
-  return is_cjk(last_codepoint(previous)) and is_ascii_alnum(first_codepoint(text))
+  local previous_last = last_codepoint(previous)
+  local current_first = first_codepoint(text)
+  return (is_cjk(previous_last) or is_ascii_alnum(previous_last))
+      and is_ascii_alnum(current_first)
 end
 
 local function processor(key_event, env)
@@ -172,8 +175,9 @@ local function processor(key_event, env)
     return kNoop
   end
 
-  -- 英文 input 按回车直接上屏时,如果前一个上屏内容是中文,
-  -- 在英文前补一个半角空格。覆盖普通英文 preedit 与英文累积两种场景。
+  -- 英文 input 按回车直接上屏时,如果前一个上屏内容以中文、
+  -- 英文字母或数字结尾,在英文前补一个半角空格。
+  -- 覆盖普通英文 preedit 与英文累积两种场景。
   if key == "Return" or key == "KP_Enter" then
     local input = context.input
     if is_plain_english_input(input) then
