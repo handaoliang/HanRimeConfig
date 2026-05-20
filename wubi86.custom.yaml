@@ -75,25 +75,12 @@ patch:
   # 配合 english_sentence.lua 实现"包含大写字母触发英文句子累积输入"
   "recognizer/patterns/uppercase": "[a-zA-Z]*[A-Z][- _+.'0-9A-Za-z,;:!?\"()/@#&*$%^_={}|~<>`\\\\\\[\\]]*$"
 
-  # z 触发: 用 pinyin_simp 反查
+  # z 触发: 用 雾凇拼音 反查
   reverse_lookup:
-    dictionary: pinyin_simp
+    dictionary: rime_ice
     prefix: "z"
     suffix: "'"
-    tips: 〔简单拼音〕
-    preedit_format:
-      - xform/([nl])v/$1ü/
-      - xform/([nl])ue/$1üe/
-      - xform/([jqxy])v/$1u/
-
-  # ` 触发: 用 luna_pinyin 反查
-  reverse_lookup2:
-    tag: reverse_lookup2
-    dictionary: luna_pinyin
-    enable_user_dict: false
-    prefix: "`"
-    suffix: "'"
-    tips: 〔正常拼音〕
+    tips: 〔雾凇拼音〕
     preedit_format:
       - xform/([nl])v/$1ü/
       - xform/([nl])ue/$1üe/
@@ -101,3 +88,16 @@ patch:
     comment_format:
       - xform/([nl])v/$1ü/
       - xform/([nl])ue/$1üe/
+
+  # ` 触发: 用 pinyin_simp 反查
+  reverse_lookup2:
+    tag: reverse_lookup2
+    dictionary: pinyin_simp
+    # enable_user_dict: false
+    prefix: "`"
+    suffix: "'"
+    tips: 〔简单拼音〕
+    preedit_format:
+      - xform/([nl])v/$1ü/
+      - xform/([nl])ue/$1üe/
+      - xform/([jqxy])v/$1u/

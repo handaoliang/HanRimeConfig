@@ -11,12 +11,12 @@ patch:
   schema_list:
     - schema: wubi86_jidian             # 五笔
     - schema: rime_ice                  # 雾凇拼音（全拼）
-    - schema: wubi86                    # 五笔86版（官方）
-    - schema: luna_pinyin_simp          # 朙月拼音（官方）
+    # - schema: wubi86                    # 五笔86版（官方）
+    # - schema: luna_pinyin_simp          # 朙月拼音（官方）
     - schema: numbers                   # 大写数字
     - schema: wubi86_jidian_pinyin      # 五笔拼音混输
     - schema: wubi86_jidian_trad        # 五笔 - 简入繁出
-    # - schema: wubi86_jidian_trad_pinyin # 五笔拼音混输 - 简入繁出
+    - schema: wubi86_jidian_trad_pinyin # 五笔拼音混输 - 简入繁出
     # - schema: pinyin_simp               # 普通拼音
 
   switcher/caption: "〔选择输入法〕"

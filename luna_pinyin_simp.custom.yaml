@@ -1,5 +1,5 @@
 patch:
-  "schema/name": "拼音"
+  "schema/name": "朙月拼音"
   schema/dependencies:
     - luna_pinyin
     - easy_en
