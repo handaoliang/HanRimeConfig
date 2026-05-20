@@ -24,6 +24,10 @@ patch:
     __include: default:/smart_space
     enabled: true
 
+  # 针对Squirrel定制版本的配置：无候选时由前端接管，累积英文，回车上屏。
+  auto_english:
+    enabled: true
+
   punctuator/half_shape/+:
     " ": "　"
 
