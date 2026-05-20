@@ -1,4 +1,4 @@
--- date_translator.lua
+-- easy_date_translator.lua
 -- 快捷输入日期 / 时间 / 星期
 -- 触发码:
 --   rq -> 日期 (2025-05-17 / 2025年05月17日 / 05-17 / 2025/05/17)
@@ -6,7 +6,7 @@
 --   xq -> 星期 (周X / 星期X / 礼拜X)
 -- 作者: handaoliang
 
-local function date_translator(input, seg)
+local function easy_date_translator(input, seg)
     if (input == "rq") then
         --- Candidate(type, start, end, text, comment)
         yield(Candidate("date", seg.start, seg._end, os.date("%Y-%m-%d"), ""))
@@ -27,4 +27,4 @@ local function date_translator(input, seg)
     end
 end
 
-return date_translator
+return easy_date_translator

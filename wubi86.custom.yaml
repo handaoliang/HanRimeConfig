@@ -65,7 +65,7 @@ patch:
     - punct_translator
     - reverse_lookup_translator
     - reverse_lookup_translator@reverse_lookup2
-    - lua_translator@date_translator
+    - lua_translator@easy_date_translator
     - table_translator
 
   "recognizer/patterns/reverse_lookup": "^z[a-z]*'?$"

@@ -3,8 +3,8 @@
 -- 作者: handaoliang
 
 -- 日期 / 时间 / 星期 快捷输入 (translator)
--- 在 schema 中通过 engine/translators 加 lua_translator@date_translator 启用
-date_translator = require("date_translator")
+-- 在 schema 中通过 engine/translators 加 lua_translator@easy_date_translator 启用
+date_translator = require("easy_date_translator")
 
 -- 单字优先过滤器 (filter)
 -- 在 schema 中通过 engine/filters 加 lua_filter@single_char_first_filter 启用
