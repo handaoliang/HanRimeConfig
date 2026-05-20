@@ -64,7 +64,7 @@ patch:
   "speller/auto_select": false        # 四码唯一时，自动上屏
 
   engine/filters:
-    # - lua_filter@pangu_spacing_filter
+    - lua_filter@pangu_spacing_filter
     - simplifier@tradition
 
   "recognizer/patterns/reverse_lookup": "^z[a-z]*'?$"
