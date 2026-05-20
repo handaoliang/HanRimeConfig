@@ -182,9 +182,13 @@ local function processor(key_event, env)
     local input = context.input
     if is_plain_english_input(input) then
       local text = input
+
+      -- should_prefix_space 的条件是 (前为CJK 或 前为字母数字) 且 (当前为字母数字),
+      -- 所以“英文→英文”会命中并加空格 —— 这正是多余空格的来源。
       if pangu_spacing_enabled(env) and should_prefix_space(context, text) then
         text = " " .. text
       end
+
       env.engine:commit_text(text)
       context:clear()
       return kAccepted

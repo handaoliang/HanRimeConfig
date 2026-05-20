@@ -57,6 +57,10 @@ patch:
   pangu_spacing:
     enabled: false
 
+  # 针对Squirrel定制版本的配置，这个在别的地方不起作用。
+  smart_space:
+    enabled: false
+
 #==  punctuator:
 #==    full_shape: # 全角符号
 #==      " ": {commit: "　"}

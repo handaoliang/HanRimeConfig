@@ -14,8 +14,18 @@ patch:
     - pinyin_simp
     - rime_ice
 
+  # 针对Squirrel定制版本的配置，这个在别的地方不起作用。
   pangu_spacing:
     __include: default:/pangu_spacing
+    enabled: true
+
+  # 针对Squirrel定制版本的配置，这个在别的地方不起作用。
+  smart_space:
+    __include: default:/smart_space
+    enabled: true
+
+  punctuator/half_shape/+:
+    " ": "　"
 
   # processors: 智能空格(根据上一个上屏内容决定半角/全角)
   # lua_processor 必须放在 punctuator 之前才能拦截空格
@@ -54,7 +64,7 @@ patch:
   "speller/auto_select": false        # 四码唯一时，自动上屏
 
   engine/filters:
-    - lua_filter@pangu_spacing_filter
+    # - lua_filter@pangu_spacing_filter
     - simplifier@tradition
 
   "recognizer/patterns/reverse_lookup": "^z[a-z]*'?$"
