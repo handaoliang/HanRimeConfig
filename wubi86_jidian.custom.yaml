@@ -17,7 +17,7 @@ patch:
   # 针对Squirrel定制版本的配置，这个在别的地方不起作用。
   pangu_spacing:
     __include: default:/pangu_spacing
-    enabled: true
+    enabled: false
 
   # 针对Squirrel定制版本的配置，这个在别的地方不起作用。
   smart_space:
@@ -29,6 +29,7 @@ patch:
     enabled: true
 
   punctuator/half_shape/+:
+    "/": "、"
     " ": "　"
 
   # processors: 智能空格(根据上一个上屏内容决定半角/全角)
@@ -40,7 +41,7 @@ patch:
     - ascii_composer
     - recognizer
     - key_binder
-    - lua_processor@smart_space
+    # - lua_processor@smart_space
     - speller
     - punctuator
     - selector
@@ -62,7 +63,6 @@ patch:
     - table_translator
     - lua_translator@*wubi86_jidian_date_translator # 日期、时间、星期
     - history_translator@repeat_last_input # 重复上一次输入，对应下面的 repeat_last_input
-
 
   "speller/max_code_length": 128       # 四码上屏
   "speller/auto_select": false        # 四码唯一时，自动上屏
