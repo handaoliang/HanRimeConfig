@@ -66,6 +66,16 @@ patch:
   schema_name_in_preedit:
     enabled: true
 
+  # ===========================================================
+  # 安全输入(密码框)拦截 (Squirrel 定制版前端功能,别处不生效)
+  # ===========================================================
+  # 开启时:安全输入态(密码框)下不把修饰键变化喂给引擎,避免按 Shift 打大写时
+  # 误触发「中/英」切换提示。默认 true。
+  # 若你在终端开了「安全键盘输入」(Secure Keyboard Entry)或安全输入卡住,
+  # 导致右 Shift 切中英失效,可设为 false 关掉本拦截。
+  secure_input_guard:
+    enabled: true
+
   # macOS 的 Command 键在 Rime 中通常写作 Super；若系统占用了 Command+Space,
   # 需要先在 macOS 键盘快捷键设置里释放该组合键，Squirrel 才能收到。
   # 不行，拿不到 Command+Space 组合键，这三行配置保留，留个念想吧，后面看看有没有机会用上。

@@ -42,6 +42,12 @@ patch:
   auto_english:
     enabled: true
 
+  # 针对Squirrel定制版本的配置：空闲时按 key 临时切到 schema 打字，上屏/取消后自动切回本方案。
+  temp_schema:
+    enabled: true
+    key: z              # 触发键（空闲时按下，本身不上屏）
+    schema: rime_ice    # 临时切到的方案（雾凇拼音）
+
   punctuator/half_shape/+:
     "/": "、"
     " ": "　"
