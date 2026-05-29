@@ -46,6 +46,18 @@ patch:
     Caps_Lock: noop                     # CapsLock 交给 macOS 系统处理
     Eisu_toggle: clear
 
+  # ===========================================================
+  # Command+数字 直切方案 (Squirrel 定制版前端功能,别处不生效)
+  # ===========================================================
+  # 全局生效(经 CGEventTap 兜底,优先给输入法),需「辅助功能」权限同 ⌘Space。
+  # bindings 下「数字: 方案id」可绑 ⌘0~⌘9 到任意方案。
+  schema_hotkeys:
+    enabled: true
+    bindings:
+      "7": wubi86_jidian_pinyin   # ⌘7 → 五笔拼音混输
+      "8": wubi86_jidian      # ⌘9 → 极点五笔
+      "9": rime_ice          # ⌘8 → 雾凇拼音
+
   # macOS 的 Command 键在 Rime 中通常写作 Super；若系统占用了 Command+Space,
   # 需要先在 macOS 键盘快捷键设置里释放该组合键，Squirrel 才能收到。
   # 不行，拿不到 Command+Space 组合键，这三行配置保留，留个念想吧，后面看看有没有机会用上。

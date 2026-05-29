@@ -1,0 +1,72 @@
+# 极点五笔86和拼音混合输入法定制
+# 中文输入(半角)模式下,/ 键直接输出顿号「、」
+# 作者: handaoliang
+
+patch:
+  "schema/name": "五笔拼音"
+
+  # 候选词每页数量
+  menu:
+    page_size: 9
+
+  # 针对Squirrel定制版本的配置，这个在别的地方不起作用。
+  pangu_spacing:
+    __include: default:/pangu_spacing
+    enabled: false
+
+  # 针对Squirrel定制版本的配置，这个在别的地方不起作用。
+  smart_space:
+    __include: default:/smart_space
+    enabled: true
+
+  # 针对Squirrel定制版本的配置：无候选时由前端接管，累积英文，回车上屏。
+  auto_english:
+    enabled: true
+
+  punctuator/half_shape/+:
+    "/": "、"
+    " ": "　"
+
+  # processors: 智能空格(根据上一个上屏内容决定半角/全角)
+  # lua_processor 必须放在 punctuator 之前才能拦截空格
+  # english_sentence 须放在 ascii_composer 之前,否则 Shift 键会先被
+  # ascii_composer 处理,导致 input 提前上屏
+  engine/processors:
+    - lua_processor@english_sentence
+    - ascii_composer
+    - recognizer
+    - key_binder
+    # - lua_processor@smart_space
+    - speller
+    - punctuator
+    - selector
+    - navigator
+    - express_editor
+
+  # 关键: 加上 matcher,让自定义 tag (reverse_lookup2) 能被识别为独立的输入段
+  engine/segmentors:
+    - ascii_segmentor
+    - matcher
+    - abc_segmentor
+    - punct_segmentor
+    - fallback_segmentor
+
+  engine/translators:
+    - punct_translator
+    - reverse_lookup_translator
+    - reverse_lookup_translator@reverse_lookup2
+    - table_translator
+    - lua_translator@*wubi86_jidian_date_translator # 日期、时间、星期
+    - history_translator@repeat_last_input # 重复上一次输入，对应下面的 repeat_last_input
+
+  "speller/max_code_length": 128       # 四码上屏
+  "speller/auto_select": false        # 四码唯一时，自动上屏
+
+  engine/filters:
+    - lua_filter@pangu_spacing_filter
+    - simplifier@tradition
+
+  # uppercase 段允许的字符: 字母数字 + 空格 + 所有可打印 ASCII 标点
+  # 允许小写字母前置(如 iMac / nA / GitHub),只要 input 中包含大写字母即触发
+  # 配合 english_sentence.lua 实现"包含大写字母触发英文句子累积输入"
+  "recognizer/patterns/uppercase": "[a-zA-Z]*[A-Z][- _+.'0-9A-Za-z,;:!?\"()/@#&*$%^_={}|~<>`\\\\\\[\\]]*$"
