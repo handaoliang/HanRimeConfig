@@ -18,6 +18,10 @@ patch:
   # 待转字母不嵌入目标程序,由输入法窗口显示
   "style/inline_preedit": false
 
+  # inline_preedit:false 时,组字区在宿主程序里的占位下划线(定制版前端功能)
+  # half=半角空格(默认,下划线更短) | full=全角空格(中文基线稳) | none=不显示
+  "style/preedit_placeholder": half
+
   # 消除掉输入的字母后面的^这个符号
   "style/caret_symbol": ""
 
@@ -44,6 +48,7 @@ patch:
   "style/border_width": 12            # 面板左右内边距
   "style/line_spacing": 0             # 候选行不加额外底距,避免高亮块偏顶
   "style/spacing": 2                  # 候选词之间间距
+  "style/candidate_left_padding": 10  # 候选区右移,与 preedit 前的〔方案名〕对齐(定制版前端功能)
   "style/base_offset": 0
   "style/shadow_size": 0
 

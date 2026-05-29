@@ -12,6 +12,8 @@ patch:
   pangu_spacing:
     __include: default:/pangu_spacing
 
+  # 本方案原本未声明 ascii_mode 开关,导致按 Command+Space 切中英时取不到状态名、
+  # 不弹「中文/英文」提示(切换本身仍生效)。补上声明即可正常弹提示。
   switches:
     - name: ascii_mode
       reset: 0

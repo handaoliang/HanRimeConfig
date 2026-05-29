@@ -58,6 +58,14 @@ patch:
       "8": wubi86_jidian      # ⌘9 → 极点五笔
       "9": rime_ice          # ⌘8 → 雾凇拼音
 
+  # ===========================================================
+  # 浮窗 Preedit 前显示当前方案名 (Squirrel 定制版前端功能,别处不生效)
+  # ===========================================================
+  # 输入时在浮窗 preedit 前加「〔方案名〕」前缀(取方案的 schema/name)。
+  # 仅浮窗模式(inline_preedit: false)生效;内联模式不加,避免污染宿主文本框。
+  schema_name_in_preedit:
+    enabled: true
+
   # macOS 的 Command 键在 Rime 中通常写作 Super；若系统占用了 Command+Space,
   # 需要先在 macOS 键盘快捷键设置里释放该组合键，Squirrel 才能收到。
   # 不行，拿不到 Command+Space 组合键，这三行配置保留，留个念想吧，后面看看有没有机会用上。

@@ -14,6 +14,20 @@ patch:
     - pinyin_simp
     - rime_ice
 
+  # 本方案原本未声明 ascii_mode 开关,导致按 Command+Space 切中英时取不到状态名、
+  # 不弹「中文/英文」提示(切换本身仍生效)。补上声明即可正常弹提示。
+  switches:
+    - name: ascii_mode
+      reset: 0
+      states: [ 中文, 英文 ]
+    - name: full_shape
+      states: [ 半角, 全角 ]
+    - name: simplification
+      reset: 1
+      states: [ 漢字, 汉字 ]
+    - name: ascii_punct
+      states: [ 。，, ．， ]
+
   # 针对Squirrel定制版本的配置，这个在别的地方不起作用。
   pangu_spacing:
     __include: default:/pangu_spacing
